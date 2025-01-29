@@ -46,7 +46,8 @@ public class Robot extends LoggedRobot {
   private final OperatorController m_operatorController = new OperatorController(1, true, true);
   private final GenericHID sysIdController = new GenericHID(2);
 
-  private final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(Drivetrain.kMaxAcceleration);
+  // private final SlewRateLimiter m_speedLimiter = new
+  // SlewRateLimiter(Drivetrain.kMaxAcceleration);
   private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(Math.PI * 8);
 
   // Robot subsystems
@@ -137,11 +138,15 @@ public class Robot extends LoggedRobot {
   }
 
   double speed = 0;
+  boolean scorePressed = false;
 
   @Override
   public void teleopPeriodic() {
     double maxSpeed = m_driverController.getWantsSpeedMode() ? Drivetrain.kMaxBoostSpeed : Drivetrain.kMaxSpeed;
-    double xSpeed = m_speedLimiter.calculate(m_driverController.getForwardAxis() * maxSpeed);
+
+    // double xSpeed = m_speedLimiter.calculate(m_driverController.getForwardAxis()
+    // * maxSpeed);
+    double xSpeed = m_driverController.getForwardAxis() * maxSpeed;
 
     // m_drive.slowMode(m_driverController.getWantsSlowMode());
     // m_drive.speedMode(m_driverController.getWantsSpeedMode());
@@ -149,48 +154,70 @@ public class Robot extends LoggedRobot {
 
     m_drive.drive(xSpeed, rot);
 
-    // FINAL CONTROLS
-    if (m_driverController.getWantsStow()) {
-      m_elevator.goToElevatorStow();
-      // m_algae.stow();
-    } else if (m_driverController.getWantsL2()) {
-      m_elevator.goToElevatorL2();
-      m_algae.stow();
-    } else if (m_driverController.getWantsL3()) {
-      m_elevator.goToElevatorL3();
-      m_algae.stow();
-    } else if (m_driverController.getWantsL4()) {
-      m_elevator.goToElevatorL4();
-      m_algae.stow();
-    } else if (m_driverController.getWantsA1()) {
-      m_elevator.goToAlgaeLow();
-      m_algae.grabAlgae();
-    } else if (m_driverController.getWantsA2()) {
-      m_elevator.goToAlgaeHigh();
-      m_algae.grabAlgae();
-    } else if (m_driverController.getWantsStopAlgae()) {
-      m_algae.stopAlgae();
-    } else if (m_driverController.getWantsEjectAlgae()) {
-      m_algae.score();
-    } else if (m_driverController.getWantsGroundAlgae()) {
-      m_algae.groundIntake();
-    }
-
+    // FINAL DRIVER CONTROLS
     if (m_driverController.getWantsScoreCoral()) {
+      scorePressed = true;
+
       if (m_elevator.getState() == Elevator.ElevatorState.STOW) {
         m_coral.scoreL1();
       } else {
         m_coral.scoreL24();
       }
-    } else if (m_driverController.getWantsIntakeCoral()) {
-      m_coral.intake();
+    } else if (scorePressed) {
+      scorePressed = false;
+
       m_elevator.goToElevatorStow();
+      m_coral.intake();
+    } else if (m_driverController.getWantsScoreAlgae()) {
+      m_algae.score();
+    } else if (m_driverController.getWantsGroundAlgae()) {
+      m_algae.groundIntake();
     }
 
-    if (m_operatorController.getWantsElevatorReset() || m_driverController.getWantsElevatorReset()) {
-      RobotTelemetry.print("Resetting elevator");
-      m_elevator.reset();
+    // FINAL OPERATOR CONTROLS
+    if (m_operatorController.getWantsElevatorStow()) {
+      m_elevator.goToElevatorStow();
+      m_algae.stow();
+    } else if (m_operatorController.getWantsElevatorL2()) {
+      m_elevator.goToElevatorL2();
+      m_algae.stow();
+    } else if (m_operatorController.getWantsElevatorL3()) {
+      m_elevator.goToElevatorL3();
+      m_algae.stow();
+    } else if (m_operatorController.getWantsElevatorL4()) {
+      m_elevator.goToElevatorL4();
+      m_algae.stow();
+    } else if (m_operatorController.getWantsA1()) {
+      m_elevator.goToAlgaeLow();
+      m_algae.grabAlgae();
+    } else if (m_operatorController.getWantsA2()) {
+      m_elevator.goToAlgaeHigh();
+      m_algae.grabAlgae();
+    } else if (m_operatorController.getWantsStopAlgae()) {
+      m_algae.stopAlgae();
+      m_algae.stow();
+    } else if (m_operatorController.getWantsGroundAlgae()) {
+      m_algae.groundIntake();
+    } else if (m_operatorController.getWantsCoralIntake()) {
+      m_coral.intake();
     }
+
+    // if (m_driverController.getWantsScoreCoral()) {
+    // if (m_elevator.getState() == Elevator.ElevatorState.STOW) {
+    // m_coral.scoreL1();
+    // } else {
+    // m_coral.scoreL24();
+    // }
+    // } else if (m_driverController.getWantsIntakeCoral()) {
+    // m_coral.intake();
+    // m_elevator.goToElevatorStow();
+    // }
+
+    // if (m_operatorController.getWantsElevatorReset() ||
+    // m_driverController.getWantsElevatorReset()) {
+    // RobotTelemetry.print("Resetting elevator");
+    // m_elevator.reset();
+    // }
   }
 
   @Override

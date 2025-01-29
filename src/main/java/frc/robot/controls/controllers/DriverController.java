@@ -15,6 +15,7 @@ public class DriverController extends FilteredController {
 
   // Axis
   private final double k_triggerActivationThreshold = 0.5;
+  private double k_lastTriggerValue = 0.0;
 
   public double getForwardAxis() {
     return -this.getFilteredAxis(1);
@@ -28,73 +29,17 @@ public class DriverController extends FilteredController {
     return this.getFilteredAxis(2) > k_triggerActivationThreshold;
   }
 
-  // public boolean getWantsSlowMode() {
-  // return this.getFilteredAxis(3) > k_triggerActivationThreshold;
-  // }
-
-  public boolean getWantsStow() {
-    return this.getRawButton(3);
-  }
-
-  public boolean getWantsL2() {
-    return this.getRawButton(1);
-  }
-
-  public boolean getWantsL3() {
-    return this.getRawButton(2);
-  }
-
-  public boolean getWantsL4() {
-    return this.getRawButton(4);
-  }
-
   public boolean getWantsScoreCoral() {
     return this.getFilteredAxis(3) > k_triggerActivationThreshold;
-  }
-
-  public boolean getWantsIntakeCoral() {
-    return this.getFilteredAxis(2) > k_triggerActivationThreshold;
-  }
-
-  public boolean getWantsA1() {
-    return this.getHatDown();
-  }
-
-  public boolean getWantsA2() {
-    return this.getHatUp();
-  }
-
-  public boolean getWantsStopAlgae() {
-    return this.getHatRight();
-  }
-
-  public boolean getWantsElevatorReset() {
-    return this.getRawButton(7);
-  }
-
-  public boolean getWantsEjectAlgae() {
-    return this.getRawButton(6);
   }
 
   public boolean getWantsGroundAlgae() {
     return this.getRawButton(5);
   }
 
-  // public boolean getWantsAlgaeStow() {
-  // return this.getRawButton(1);
-  // }
-
-  // public boolean getWantsAlgaeGrab() {
-  // return this.getRawButton(3);
-  // }
-
-  // public boolean getWantsAlgaeScore() {
-  // return this.getRawButton(2);
-  // }
-
-  // public boolean getWantsAlgaeGroundIntake() {
-  // return this.getRawButton(4);
-  // }
+  public boolean getWantsScoreAlgae() {
+    return this.getRawButton(6);
+  }
 
   public void outputTelemetry() {
     SmartDashboard.putNumber(m_smartDashboardKey + "Forward", getForwardAxis());

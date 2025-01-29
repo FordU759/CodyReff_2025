@@ -13,33 +13,9 @@ public class OperatorController extends FilteredController {
   // Axis
   private final double k_triggerActivationThreshold = 0.5;
 
-  public double getElevatorAxis() {
-    return -this.getFilteredAxis(1);
-  }
-
-  // public boolean getWantsTriggerSomething2() {
-  // return this.getFilteredAxis(2) > k_triggerActivationThreshold;
-  // }
-
   // CORAL
   public boolean getWantsCoralIntake() {
-    return this.getRawButton(4);
-  }
-
-  public boolean getWantsCoralReverse() {
-    return this.getRawButton(1);
-  }
-
-  public boolean getWantsCoralIndex() {
-    return this.getRawButton(8);
-  }
-
-  public boolean getWantsCoralL1() {
-    return this.getRawButton(3);
-  }
-
-  public boolean getWantsCoralL24() {
-    return this.getRawButton(2);
+    return this.getRawButton(6);
   }
 
   // ELEVATOR
@@ -48,18 +24,34 @@ public class OperatorController extends FilteredController {
   }
 
   public boolean getWantsElevatorStow() {
-    return this.getHatDown();
+    return this.getRawButton(1);
   }
 
   public boolean getWantsElevatorL2() {
-    return this.getHatLeft();
+    return this.getRawButton(3);
   }
 
   public boolean getWantsElevatorL3() {
-    return this.getHatRight();
+    return this.getRawButton(2);
   }
 
   public boolean getWantsElevatorL4() {
+    return this.getRawButton(4);
+  }
+
+  public boolean getWantsA1() {
+    return this.getHatDown();
+  }
+
+  public boolean getWantsA2() {
     return this.getHatUp();
+  }
+
+  public boolean getWantsGroundAlgae() {
+    return this.getHatLeft();
+  }
+
+  public boolean getWantsStopAlgae() {
+    return this.getHatRight();
   }
 }
