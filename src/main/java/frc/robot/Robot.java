@@ -12,6 +12,7 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -71,6 +72,8 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotInit() {
+    CameraServer.startAutomaticCapture();
+
     setupLogging();
 
     // Add all subsystems to the list
