@@ -37,8 +37,6 @@ public class Elevator extends Subsystem {
   private SparkClosedLoopController mLeftPIDController;
 
   private SimulatableCANSparkMax mRightMotor;
-  private RelativeEncoder mRightEncoder;
-  private SparkClosedLoopController mRightPIDController;
 
   private TrapezoidProfile mProfile;
   private TrapezoidProfile.State mCurState = new TrapezoidProfile.State();
@@ -54,9 +52,7 @@ public class Elevator extends Subsystem {
 
     elevatorConfig.closedLoop
         .pid(Constants.Elevator.kP, Constants.Elevator.kI, Constants.Elevator.kD)
-        .iZone(Constants.Elevator.kIZone)
-        .minOutput(Constants.Elevator.kMaxPowerDown)
-        .maxOutput(Constants.Elevator.kMaxPowerUp);
+        .iZone(Constants.Elevator.kIZone);
 
     elevatorConfig.smartCurrentLimit(Constants.Elevator.kMaxCurrent);
 
@@ -74,8 +70,6 @@ public class Elevator extends Subsystem {
 
     // RIGHT ELEVATOR MOTOR
     mRightMotor = new SimulatableCANSparkMax(Constants.Elevator.kElevatorRightMotorId, MotorType.kBrushless);
-    mRightEncoder = mRightMotor.getEncoder();
-    mRightPIDController = mRightMotor.getClosedLoopController();
     mRightMotor.configure(
         elevatorConfig.follow(mLeftMotor, true),
         ResetMode.kResetSafeParameters,
