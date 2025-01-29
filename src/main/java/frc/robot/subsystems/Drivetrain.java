@@ -167,6 +167,10 @@ public class Drivetrain extends Subsystem {
         .apply(globalConfig)
         .apply(encoderConfig);
 
+    var leftFollowerConfig = new SparkMaxConfig()
+        .apply(globalConfig)
+        .follow(mLeftLeader);
+
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
@@ -174,10 +178,6 @@ public class Drivetrain extends Subsystem {
         .apply(globalConfig)
         .apply(encoderConfig)
         .inverted(true);
-
-    var leftFollowerConfig = new SparkMaxConfig()
-        .apply(globalConfig)
-        .follow(mLeftLeader);
 
     var rightFollowerConfig = new SparkMaxConfig()
         .apply(globalConfig)
