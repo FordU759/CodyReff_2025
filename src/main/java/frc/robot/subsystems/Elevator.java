@@ -61,6 +61,7 @@ public class Elevator extends Subsystem {
     elevatorConfig.smartCurrentLimit(Constants.Elevator.kMaxCurrent);
 
     elevatorConfig.idleMode(IdleMode.kBrake);
+    elevatorConfig.limitSwitch.reverseLimitSwitchEnabled(true);
 
     // LEFT ELEVATOR MOTOR
     mLeftMotor = new SimulatableCANSparkMax(Constants.Elevator.kElevatorLeftMotorId, MotorType.kBrushless);
@@ -76,7 +77,7 @@ public class Elevator extends Subsystem {
     mRightEncoder = mRightMotor.getEncoder();
     mRightPIDController = mRightMotor.getClosedLoopController();
     mRightMotor.configure(
-        elevatorConfig.follow(mLeftMotor),
+        elevatorConfig.follow(mLeftMotor, true),
         ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
