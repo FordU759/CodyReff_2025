@@ -1,239 +1,169 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkClosedLoopController.ArbFFUnits;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.simulation.SimulatableCANSparkMax;
 
 public class Elevator extends Subsystem {
 
-  /*-------------------------------- Private instance variables ---------------------------------*/
-  private static Elevator mInstance;
-  private PeriodicIO mPeriodicIO;
+    /*-------------------------------- Private instance variables ---------------------------------*/
+    private static Elevator mInstance;
+    private PeriodicIO mPeriodicIO;
 
-  // private static final double kPivotCLRampRate = 0.5;
-  // private static final double kCLRampRate = 0.5;
-
-  public static Elevator getInstance() {
-    if (mInstance == null) {
-      mInstance = new Elevator();
+    public static Elevator getInstance() {
+        if (mInstance == null) {
+            mInstance = new Elevator();
+        }
+        return mInstance;
     }
-    return mInstance;
-  }
 
-  private SimulatableCANSparkMax mLeftMotor;
-  private RelativeEncoder mLeftEncoder;
-  private SparkClosedLoopController mLeftPIDController;
+    private SimulatableCANSparkMax mLeftMotor;
+    private SimulatableCANSparkMax mRightMotor;
 
-  private SimulatableCANSparkMax mRightMotor;
-  private RelativeEncoder mRightEncoder;
-  private SparkClosedLoopController mRightPIDController;
+    private double currentHeight = 0; // Track the assumed height; this will be inaccurate
 
-  private TrapezoidProfile mProfile;
-  private TrapezoidProfile.State mCurState = new TrapezoidProfile.State();
-  private TrapezoidProfile.State mGoalState = new TrapezoidProfile.State();
-  private double prevUpdateTime = Timer.getFPGATimestamp();
+    private Elevator() {
+        super("Elevator");
 
-  private Elevator() {
-    super("Elevator");
+        mPeriodicIO = new PeriodicIO();
 
-    mPeriodicIO = new PeriodicIO();
+        SparkMaxConfig elevatorConfig = new SparkMaxConfig();
 
-    SparkMaxConfig elevatorConfig = new SparkMaxConfig();
+        elevatorConfig.closedLoop
+                .pid(Constants.Elevator.kP, Constants.Elevator.kI, Constants.Elevator.kD)
+                .iZone(Constants.Elevator.kIZone)
+                .minOutput(Constants.Elevator.kMaxPowerDown)
+                .maxOutput(Constants.Elevator.kMaxPowerUp);
 
-    elevatorConfig.closedLoop
-        .pid(Constants.Elevator.kP, Constants.Elevator.kI, Constants.Elevator.kD)
-        .iZone(Constants.Elevator.kIZone)
-        .minOutput(Constants.Elevator.kMaxPowerDown)
-        .maxOutput(Constants.Elevator.kMaxPowerUp);
+        elevatorConfig.smartCurrentLimit(Constants.Elevator.kMaxCurrent);
 
-    elevatorConfig.smartCurrentLimit(Constants.Elevator.kMaxCurrent);
+        elevatorConfig.idleMode(IdleMode.kBrake);
 
-    elevatorConfig.idleMode(IdleMode.kBrake);
+        // LEFT ELEVATOR MOTOR
+        mLeftMotor = new SimulatableCANSparkMax(Constants.Elevator.kElevatorLeftMotorId, MotorType.kBrushless);
+        mLeftMotor.configure(
+                elevatorConfig,
+                ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
 
-    // LEFT ELEVATOR MOTOR
-    mLeftMotor = new SimulatableCANSparkMax(Constants.Elevator.kElevatorLeftMotorId, MotorType.kBrushless);
-    mLeftEncoder = mLeftMotor.getEncoder();
-    mLeftPIDController = mLeftMotor.getClosedLoopController();
-    mLeftMotor.configure(
-        elevatorConfig,
-        ResetMode.kResetSafeParameters,
-        PersistMode.kPersistParameters);
-
-    // RIGHT ELEVATOR MOTOR
-    mRightMotor = new SimulatableCANSparkMax(Constants.Elevator.kElevatorRightMotorId, MotorType.kBrushless);
-    mRightEncoder = mRightMotor.getEncoder();
-    mRightPIDController = mRightMotor.getClosedLoopController();
-    mRightMotor.configure(
-        elevatorConfig.follow(mLeftMotor),
-        ResetMode.kResetSafeParameters,
-        PersistMode.kPersistParameters);
-
-    mProfile = new TrapezoidProfile(
-        new TrapezoidProfile.Constraints(
-            Constants.Elevator.kMaxVelocity,
-            Constants.Elevator.kMaxAcceleration));
-  }
-
-  public enum ElevatorState {
-    NONE,
-    STOW,
-    L2,
-    L3,
-    L4,
-    A1,
-    A2
-  }
-
-  private static class PeriodicIO {
-    double elevator_target = 0.0;
-    double elevator_power = 0.0;
-
-    boolean is_elevator_pos_control = false;
-
-    ElevatorState state = ElevatorState.STOW;
-  }
-
-  /*-------------------------------- Generic Subsystem Functions --------------------------------*/
-
-  @Override
-  public void periodic() {
-    // TODO: Use this pattern to only drive slowly when we're really high up
-    // if(mPivotEncoder.getPosition() > Constants.kPivotScoreCount) {
-    // mPeriodicIO.is_pivot_low = true;
-    // } else {
-    // mPeriodicIO.is_pivot_low = false;
-    // }
-  }
-
-  @Override
-  public void writePeriodicOutputs() {
-    double curTime = Timer.getFPGATimestamp();
-    double dt = curTime - prevUpdateTime;
-    prevUpdateTime = curTime;
-    if (mPeriodicIO.is_elevator_pos_control) {
-      // Update goal
-      mGoalState.position = mPeriodicIO.elevator_target;
-
-      // Calculate new state
-      prevUpdateTime = curTime;
-      mCurState = mProfile.calculate(dt, mCurState, mGoalState);
-
-      // Set PID controller to new state
-      mLeftPIDController.setReference(
-          mCurState.position,
-          SparkBase.ControlType.kPosition,
-          ClosedLoopSlot.kSlot0,
-          Constants.Elevator.kG,
-          ArbFFUnits.kVoltage);
-    } else {
-      mCurState.position = mLeftEncoder.getPosition();
-      mCurState.velocity = 0;
-      mLeftMotor.set(mPeriodicIO.elevator_power);
+        // RIGHT ELEVATOR MOTOR
+        mRightMotor = new SimulatableCANSparkMax(Constants.Elevator.kElevatorRightMotorId, MotorType.kBrushless);
+        mRightMotor.configure(
+                elevatorConfig.follow(mLeftMotor),
+                ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
     }
-  }
 
-  @Override
-  public void stop() {
-    mPeriodicIO.is_elevator_pos_control = false;
-    mPeriodicIO.elevator_power = 0.0;
+    public static enum ElevatorState { // Made public and static
+        NONE,
+        STOW,
+        L2,
+        L3,
+        L4,
+        A1,
+        A2
+    }
 
-    mLeftMotor.set(0.0);
-  }
+    private static class PeriodicIO {
+        double elevator_power = 0.0;
+        ElevatorState state = ElevatorState.STOW;
+    }
 
-  @Override
-  public void outputTelemetry() {
-    putNumber("Position/Current", mLeftEncoder.getPosition());
-    putNumber("Position/Target", mPeriodicIO.elevator_target);
-    putNumber("Velocity/Current", mLeftEncoder.getVelocity());
+    /*-------------------------------- Generic Subsystem Functions --------------------------------*/
 
-    putNumber("Position/Setpoint", mCurState.position);
-    putNumber("Velocity/Setpoint", mCurState.velocity);
+    @Override
+    public void periodic() {
+        // No periodic actions needed for this open-loop control
+    }
 
-    putNumber("Current/Left", mLeftMotor.getOutputCurrent());
-    putNumber("Current/Right", mRightMotor.getOutputCurrent());
+    @Override
+    public void writePeriodicOutputs() {
+        mLeftMotor.set(mPeriodicIO.elevator_power); // Direct power control
+    }
 
-    putNumber("Output/Left", mLeftMotor.getAppliedOutput());
-    putNumber("Output/Right", mRightMotor.getAppliedOutput());
+    @Override
+    public void stop() {
+        mPeriodicIO.elevator_power = 0.0;
+        mLeftMotor.set(0.0);
+    }
 
-    putNumber("State", mPeriodicIO.state);
-  }
+    @Override
+    public void outputTelemetry() {
+        putNumber("Height/Current (Estimated)", currentHeight); // Indicate estimated height
+        putNumber("Power", mPeriodicIO.elevator_power);
+        putNumber("Current/Left", mLeftMotor.getOutputCurrent());
+        putNumber("Current/Right", mRightMotor.getOutputCurrent());
+        putNumber("State", mPeriodicIO.state); // Accessing ElevatorState directly
+    }
 
-  @Override
-  public void reset() {
-    mLeftEncoder.setPosition(0.0);
-  }
+    @Override
+    public void reset() {
+        currentHeight = 0.0; // Reset the estimated height
+    }
 
-  /*---------------------------------- Custom Public Functions ----------------------------------*/
+    /*---------------------------------- Custom Public Functions ----------------------------------*/
 
-  public ElevatorState getState() {
-    return mPeriodicIO.state;
-  }
+    public ElevatorState getState() {
+        return mPeriodicIO.state;
+    }
 
-  public void setElevatorPower(double power) {
-    putNumber("setElevatorPower", power);
-    mPeriodicIO.is_elevator_pos_control = false;
-    mPeriodicIO.elevator_power = power;
-  }
+    public void setElevatorPower(double power) {
+        mPeriodicIO.elevator_power = power;
+    }
 
-  public void goToElevatorStow() {
-    mPeriodicIO.is_elevator_pos_control = true;
-    mPeriodicIO.elevator_target = Constants.Elevator.kStowHeight;
-    mPeriodicIO.state = ElevatorState.STOW;
-  }
+    // Manual height control functions - these are estimations only!  Requires careful calibration!
+    public void goToElevatorStow() {
+        setElevatorPower(0.5); // Example power for going up.  Adjust as needed!
+        Timer.delay(1); // Example time to reach the stow position.  Adjust as needed!
+        setElevatorPower(0);
+        currentHeight = Constants.Elevator.kStowHeight;
+        mPeriodicIO.state = ElevatorState.STOW;
+    }
 
-  public void goToElevatorL2() {
-    mPeriodicIO.is_elevator_pos_control = true;
-    mPeriodicIO.elevator_target = Constants.Elevator.kL2Height;
-    mPeriodicIO.state = ElevatorState.L2;
-  }
+    public void goToElevatorL2() {
+        setElevatorPower(0.5); // Example power. Adjust as needed!
+        Timer.delay(2); // Example time. Adjust as needed!
+        setElevatorPower(0);
+        currentHeight = Constants.Elevator.kL2Height;
+        mPeriodicIO.state = ElevatorState.L2;
+    }
 
-  public void goToElevatorL3() {
-    mPeriodicIO.is_elevator_pos_control = true;
-    mPeriodicIO.elevator_target = Constants.Elevator.kL3Height;
-    mPeriodicIO.state = ElevatorState.L3;
-  }
+    public void goToElevatorL3() {
+        setElevatorPower(0.5); // Example power. Adjust as needed!
+        Timer.delay(3); // Example time. Adjust as needed!
+        setElevatorPower(0);
+        currentHeight = Constants.Elevator.kL3Height;
+        mPeriodicIO.state = ElevatorState.L3;
+    }
 
-  public void goToElevatorL4() {
-    mPeriodicIO.is_elevator_pos_control = true;
-    mPeriodicIO.elevator_target = Constants.Elevator.kL4Height;
-    mPeriodicIO.state = ElevatorState.L4;
-  }
+    public void goToElevatorL4() {
+        setElevatorPower(0.5); // Example power. Adjust as needed!
+        Timer.delay(4); // Example time. Adjust as needed!
+        setElevatorPower(0);
+        currentHeight = Constants.Elevator.kL4Height;
+        mPeriodicIO.state = ElevatorState.L4;
+    }
 
-  public void goToAlgaeLow() {
-    mPeriodicIO.is_elevator_pos_control = true;
-    mPeriodicIO.elevator_target = Constants.Elevator.kLowAlgaeHeight;
-    mPeriodicIO.state = ElevatorState.A1;
-  }
+    public void goToAlgaeLow() {
+        setElevatorPower(0.5); // Example power. Adjust as needed!
+        Timer.delay(2.5); // Example time. Adjust as needed!
+        setElevatorPower(0);
+        currentHeight = Constants.Elevator.kLowAlgaeHeight;
+        mPeriodicIO.state = ElevatorState.A1;
+    }
 
-  public void goToAlgaeHigh() {
-    mPeriodicIO.is_elevator_pos_control = true;
-    mPeriodicIO.elevator_target = Constants.Elevator.kHighAlgaeHeight;
-    mPeriodicIO.state = ElevatorState.A2;
-  }
-
-  // Allows setting elevator position control and target safely
-public void setElevatorTarget(double targetPosition) {
-  mPeriodicIO.is_elevator_pos_control = true;
-  mPeriodicIO.elevator_target = targetPosition;
-}
-
-// Allows getting the current position
-public double getElevatorPosition() {
-  return mCurState.position;
-}
-
-
-  /*---------------------------------- Custom Private Functions ---------------------------------*/
+    public void goToAlgaeHigh() {
+        setElevatorPower(0.5); // Example power. Adjust as needed!
+        Timer.delay(3.5); // Example time. Adjust as needed!
+        setElevatorPower(0);
+        currentHeight = Constants.Elevator.kHighAlgaeHeight;
+        mPeriodicIO.state = ElevatorState.A2;
+    }
 }
