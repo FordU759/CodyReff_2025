@@ -223,5 +223,17 @@ public class Elevator extends Subsystem {
     mPeriodicIO.state = ElevatorState.A2;
   }
 
+  // Allows setting elevator position control and target safely
+public void setElevatorTarget(double targetPosition) {
+  mPeriodicIO.is_elevator_pos_control = true;
+  mPeriodicIO.elevator_target = targetPosition;
+}
+
+// Allows getting the current position
+public double getElevatorPosition() {
+  return mCurState.position;
+}
+
+
   /*---------------------------------- Custom Private Functions ---------------------------------*/
 }
