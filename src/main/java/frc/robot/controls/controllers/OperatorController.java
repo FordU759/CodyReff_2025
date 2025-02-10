@@ -2,6 +2,8 @@ package frc.robot.controls.controllers;
 
 public class OperatorController extends FilteredController {
 
+  private boolean manualControlMode = false; // Variable to track manual control mode
+
   public OperatorController(int port) {
     super(port, false, false);
   }
@@ -14,35 +16,15 @@ public class OperatorController extends FilteredController {
   private final double k_triggerActivationThreshold = 0.5;
 
   public double getElevatorAxis() {
-    return -this.getFilteredAxis(1);
+    return -this.getFilteredAxis(1); // Joystick axis for manual control
   }
 
-  // public boolean getWantsTriggerSomething2() {
-  // return this.getFilteredAxis(2) > k_triggerActivationThreshold;
-  // }
-
-  // CORAL
-  public boolean getWantsCoralIntake() {
-    return this.getRawButton(4);
+  // Manual Control Toggle Button (Button 5 is used in this example)
+  public boolean wantsManualControlToggle() {
+    return this.getRawButton(5); // Toggle manual control with Button 5
   }
 
-  public boolean getWantsCoralReverse() {
-    return this.getRawButton(1);
-  }
-
-  public boolean getWantsCoralIndex() {
-    return this.getRawButton(8);
-  }
-
-  public boolean getWantsCoralL1() {
-    return this.getRawButton(3);
-  }
-
-  public boolean getWantsCoralL24() {
-    return this.getRawButton(2);
-  }
-
-  // ELEVATOR
+  // Elevator Control Logic
   public boolean getWantsElevatorReset() {
     return this.getRawButton(7);
   }
@@ -61,5 +43,19 @@ public class OperatorController extends FilteredController {
 
   public boolean getWantsElevatorL4() {
     return this.getHatUp();
+  }
+
+  // Check if manual control is active, and adjust the elevator if it is
+  public double getElevatorManualControl() {
+    if (wantsManualControlToggle()) {
+      manualControlMode = !manualControlMode; // Toggle manual control on/off
+    }
+
+    if (manualControlMode) {
+      return getElevatorAxis(); // Use the joystick for manual movement
+    }
+
+    // If not in manual mode, return 0 (no movement)
+    return 0;
   }
 }
