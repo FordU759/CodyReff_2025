@@ -11,27 +11,27 @@ public class Constants {
   }
 
   public static class Elevator {
-    public static final int kElevatorLeftMotorId = 9;
-    public static final int kElevatorRightMotorId = 10;
+    public static final int kElevatorLeftMotorId = 9; //This is the CAN ID for the left elevator motor
+    public static final int kElevatorRightMotorId = 10; //This is the CAN ID for the right elevator motor
 
-    public static final double kP = 0.15;
-    public static final double kI = 0;
-    public static final double kD = 0.0;
-    public static final double kIZone = 5.0;
-    public static final double kG = 0.5;
+    public static final double kP = 0.15; //This is the proportional gain, helps with error correction
+    public static final double kI = 0; //This is the integral gain, helps with steady state error
+    public static final double kD = 0.0; //This is the derivative gain, Damps oscillations
+    public static final double kIZone = 5.0; //This is the integral zone if greater than 5 it will diable
+    public static final double kG = 0.5; //This is the gravity constant
 
-    public static final double kMaxVelocity = 65;
-    public static final double kMaxAcceleration = 200;
+    public static final double kMaxVelocity = 65; //This is the maximum velocity of the elevator
+    public static final double kMaxAcceleration = 200; //This is the maximum acceleration of the elevator
 
     public static final int kMaxCurrent = 40;
-    public static final double kMaxPowerUp = -0.1;
-    public static final double kMaxPowerDown = 0.1;
+    public static final double kMaxPowerUp = -0.1; //This is the maximum power that the elevator can go up
+    public static final double kMaxPowerDown = 0.1; //This is the maximum power that the elevator can go down
 
-    public static final double kStowHeight = 0.0;
-    public static final double kL2Height = 9.0;
-    public static final double kL3Height = 25.14;
-    public static final double kL4Height = 52.0;
-    public static final double kMaxHeight = 56.2;
+    public static final double kStowHeight = 0.0; //This is the height of the elevator when it is stowed
+    public static final double kL2Height = 9.0; //This is the height of the elevator when it is at level 2
+    public static final double kL3Height = 25.14; //This is the height of the elevator when it is at level 3
+    public static final double kL4Height = 52.0; // This is the height of the elevator when it is at level 4
+    public static final double kMaxHeight = 56.2; //This is the maximum height of the elevator
     public static final double kGroundAlgaeHeight = 0.0;
     public static final double kScoreAlgaeHeight = 0.0;
     public static final double kLowAlgaeHeight = 24.8;
@@ -39,11 +39,11 @@ public class Constants {
   }
 
   public static class Coral {
-    public static final int kLeftMotorId = 11;
-    public static final int kRightMotorId = 12;
+    public static final int kLeftMotorId = 11; //This is the CAN ID for the left coral motor
+    public static final int kRightMotorId = 12; //This is the CAN ID for the right coral motor
 
-    public static final int kLaserId = 0;
-    public static final int kColorId = 16;
+    public static final int kLaserId = 0; //This is the DIO ID for the laser sensor, which is used to detect the coral
+    public static final int kColorId = 16; //This is the I2C ID for the color sensor, which is used to detect the color of the coral
 
     public static final double kMaxCurrent = 20;
 
