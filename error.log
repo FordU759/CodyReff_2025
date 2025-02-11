@@ -1,0 +1,118 @@
+********** Robot program starting **********
+NT: Listening on NT3 port 1735, NT4 port 5810
+CANSparkMax object created for CAN ID 8, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 8, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Drivetrain.<init>(Drivetrain.java:89)
+at frc.robot.subsystems.Drivetrain.getInstance(Drivetrain.java:165)
+at frc.robot.Robot.<init>(Robot.java:58)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+[CAN SPARK] IDs: 8, timed out while waiting for Getting Product ID parameter failed. Unable to account for device-specific behavior differences.
+[CAN SPARK] IDs: 8, Unable to retrieve SPARK firmware version. Please verify the deviceID field matches the configured CAN ID of the controller, and that the controller is connected to the CAN Bus.
+CANSparkMax object created for CAN ID 7, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 7, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Drivetrain.<init>(Drivetrain.java:91)
+at frc.robot.subsystems.Drivetrain.getInstance(Drivetrain.java:165)
+at frc.robot.Robot.<init>(Robot.java:58)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+CANSparkMax object created for CAN ID 6, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 6, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Drivetrain.<init>(Drivetrain.java:93)
+at frc.robot.subsystems.Drivetrain.getInstance(Drivetrain.java:165)
+at frc.robot.Robot.<init>(Robot.java:58)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+CANSparkMax object created for CAN ID 5, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 5, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Drivetrain.<init>(Drivetrain.java:95)
+at frc.robot.subsystems.Drivetrain.getInstance(Drivetrain.java:165)
+at frc.robot.Robot.<init>(Robot.java:58)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+navX-Sensor Java library for FRC
+[CAN SPARK] IDs: 5, 6, 7, 54, timed out while waiting for Getting Product ID parameter failed. Unable to account for device-specific behavior differences.
+[CAN SPARK] IDs: 5, 6, 7, 54, Unable to retrieve SPARK firmware version. Please verify the deviceID field matches the configured CAN ID of the controller, and that the controller is connected to the CAN Bus.
+CANSparkMax object created for CAN ID 54, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 54, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Elevator.<init>(Elevator.java:66)
+at frc.robot.subsystems.Elevator.getInstance(Elevator.java:30)
+at frc.robot.subsystems.Drivetrain.<init>(Drivetrain.java:107)
+at frc.robot.subsystems.Drivetrain.getInstance(Drivetrain.java:165)
+at frc.robot.Robot.<init>(Robot.java:58)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+CANSparkMax object created for CAN ID 55, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 55, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Elevator.<init>(Elevator.java:75)
+at frc.robot.subsystems.Elevator.getInstance(Elevator.java:30)
+at frc.robot.subsystems.Drivetrain.<init>(Drivetrain.java:107)
+at frc.robot.subsystems.Drivetrain.getInstance(Drivetrain.java:165)
+at frc.robot.Robot.<init>(Robot.java:58)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+[CAN SPARK] IDs: 54, 55, timed out while waiting for Getting Product ID parameter failed. Unable to account for device-specific behavior differences.
+[CAN SPARK] IDs: 55, Unable to retrieve SPARK firmware version. Please verify the deviceID field matches the configured CAN ID of the controller, and that the controller is connected to the CAN Bus.
+navX-Sensor Yaw Reset request ignored - startup calibration is currently in progress.
+CANSparkMax object created for CAN ID 11, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 11, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Coral.<init>(Coral.java:51)
+at frc.robot.subsystems.Coral.getInstance(Coral.java:25)
+at frc.robot.Robot.<init>(Robot.java:59)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+CANSparkMax object created for CAN ID 12, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 12, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Coral.<init>(Coral.java:52)
+at frc.robot.subsystems.Coral.getInstance(Coral.java:25)
+at frc.robot.Robot.<init>(Robot.java:59)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+Configuration failed! au.grapplerobotics.ConfigurationFailedException: Timed Out: CAN Request Timed Out! Is your device plugged in and the firmware up to date?
+[CAN SPARK] IDs: 11, 12, timed out while waiting for Getting Product ID parameter failed. Unable to account for device-specific behavior differences.
+[CAN SPARK] IDs: 6, 8, WPILib or External HAL Error: CAN: Message not found Periodic Status 2
+[CAN SPARK] IDs: 11, 12, 13, Unable to retrieve SPARK firmware version. Please verify the deviceID field matches the configured CAN ID of the controller, and that the controller is connected to the CAN Bus.
+CANSparkMax object created for CAN ID 13, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 13, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Algae.<init>(Algae.java:51)
+at frc.robot.subsystems.Algae.getInstance(Algae.java:25)
+at frc.robot.Robot.<init>(Robot.java:60)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
+CANSparkMax object created for CAN ID 14, which is not a SPARK MAX. Some functionalities may not work.
+Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 14, which is not a SPARK MAX. Some functionalities may not work.
+at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)
+at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16)
+at frc.robot.subsystems.Algae.<init>(Algae.java:80)
+at frc.robot.subsystems.Algae.getInstance(Algae.java:25)
+at frc.robot.Robot.<init>(Robot.java:60)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)
+at frc.robot.Main.main(Main.java:23)
