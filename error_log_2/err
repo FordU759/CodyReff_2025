@@ -1,0 +1,51 @@
+﻿﻿﻿﻿﻿﻿﻿ 	at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.Algae.<init>(Algae.java:51) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.Algae.getInstance(Algae.java:25) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Robot.<init>(Robot.java:58) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.java:23) ﻿
+﻿﻿﻿﻿﻿﻿  ﻿
+﻿﻿﻿﻿﻿﻿﻿﻿ERROR ﻿﻿ 2 ﻿﻿ [CAN SPARK] IDs: 11, 12, 13, timed out while waiting for Getting Product ID parameter failed. Unable to account for device-specific behavior differences.
+ ﻿﻿  ﻿﻿﻿
+﻿﻿﻿﻿﻿﻿﻿﻿ERROR ﻿﻿ 5 ﻿﻿ [CAN SPARK] IDs: 12, 13, Unable to retrieve SPARK firmware version. Please verify the deviceID field matches the configured CAN ID of the controller, and that the controller is connected to the CAN Bus.  ﻿﻿  ﻿﻿﻿
+﻿﻿﻿﻿﻿﻿﻿﻿Warning ﻿﻿ 1 ﻿﻿ CANSparkMax object created for CAN ID 14, which is not a SPARK MAX. Some functionalities may not work. ﻿﻿ com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77) ﻿﻿﻿
+﻿﻿﻿﻿﻿﻿ ﻿Warning﻿ at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 14, which is not a SPARK MAX. Some functionalities may not work. ﻿
+﻿﻿﻿﻿﻿﻿ 	at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.simulation.SimulatableCANSparkMax.<init>(SimulatableCANSparkMax.java:16) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.Algae.<init>(Algae.java:80) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.subsystems.Algae.getInstance(Algae.java:25) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Robot.<init>(Robot.java:58) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370) ﻿
+﻿﻿﻿﻿﻿﻿ 	at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510) ﻿
+﻿﻿﻿﻿﻿﻿ 	at frc.robot.Main.main(Main.java:23) ﻿
+﻿﻿﻿﻿﻿﻿  ﻿
+﻿﻿﻿﻿﻿﻿ 8.719 || AUTO CHANGED ﻿
+﻿﻿﻿﻿﻿﻿ 8.945 || PP_TEST_MODE ﻿
+﻿﻿﻿﻿﻿﻿ 8.958 || Running on the robot! ﻿
+﻿﻿﻿﻿﻿﻿ 8.963 || Loading path from: ﻿
+﻿﻿﻿﻿﻿﻿ /home/lvuser/deploy/paths/Note1 ﻿
+﻿﻿﻿﻿﻿﻿ 9.218 || Translating path for Red Alliance! ﻿
+﻿﻿﻿﻿﻿﻿﻿﻿ERROR ﻿﻿ 2 ﻿﻿ [CAN SPARK] IDs: 13, 14, timed out while waiting for Reset Safe Parameters ﻿﻿  ﻿﻿﻿
+﻿﻿﻿﻿﻿﻿﻿﻿ERROR ﻿﻿ 5 ﻿﻿ [CAN SPARK] IDs: 14, Unable to retrieve SPARK firmware version. Please verify the deviceID field matches the configured CAN ID of the controller, and that the controller is connected to the CAN Bus.  ﻿﻿  ﻿﻿﻿
+﻿﻿﻿﻿﻿﻿ 10.198 || Running on the robot! ﻿
+﻿﻿﻿﻿﻿﻿ 10.200 || Loading path from: ﻿
+﻿﻿﻿﻿﻿﻿ /home/lvuser/deploy/paths/Note1Back ﻿
+﻿﻿﻿﻿﻿﻿ 10.218 || Translating path for Red Alliance! ﻿
+﻿﻿﻿﻿﻿﻿ 10.235 || ===== PATH IS REVERSED ===== ﻿
+﻿﻿﻿﻿﻿﻿ 10.743 || Running on the robot! ﻿
+﻿﻿﻿﻿﻿﻿ 10.746 || Loading path from: ﻿
+﻿﻿﻿﻿﻿﻿ /home/lvuser/deploy/paths/Note3 ﻿
+﻿﻿﻿﻿﻿﻿ 10.763 || Translating path for Red Alliance! ﻿
+﻿﻿﻿﻿﻿﻿ 11.159 || Running on the robot! ﻿
+﻿﻿﻿﻿﻿﻿ 11.161 || Loading path from: ﻿
+﻿﻿﻿﻿﻿﻿ /home/lvuser/deploy/paths/Note3Back ﻿
+﻿﻿﻿﻿﻿﻿ 11.176 || Translating path for Red Alliance! ﻿
+﻿﻿﻿﻿﻿﻿ 11.184 || ===== PATH IS REVERSED ===== ﻿
+﻿﻿﻿﻿﻿﻿ CS: USB Camera 0: Attempting to connect to USB camera on /dev/video0 ﻿
+﻿﻿﻿﻿﻿﻿ CS: USB Camera 0: Attempting to connect to USB camera on /dev/video0 ﻿
+﻿﻿﻿﻿﻿﻿ CS: USB Camera 0: Attempting to connect to USB camera on /dev/video0 ﻿
+﻿﻿﻿﻿﻿﻿﻿﻿ERROR ﻿﻿ 4 ﻿﻿ [CAN SPARK] IDs: 6, 8, WPILib or External HAL Error: CAN: Message not found Periodic Status 2 ﻿﻿  ﻿﻿﻿
+﻿﻿﻿﻿﻿﻿﻿﻿Warning ﻿﻿ 44004 ﻿﻿ FRC: The Driver Station has lost communication with the robot. ﻿﻿ Driver Station ﻿﻿﻿
+﻿﻿﻿﻿﻿﻿﻿﻿Warning ﻿﻿ 44002 ﻿﻿ Ping Results:  ﻿link-bad﻿,  DS radio(.4)-bad﻿,  robot radio(.1)-bad﻿,  roboRIO(.2)-bad﻿,  FMS-bad﻿﻿ Driver Station ﻿﻿﻿
